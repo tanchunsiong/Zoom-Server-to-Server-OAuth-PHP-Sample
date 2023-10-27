@@ -7,19 +7,17 @@
     <h1>Welcome to My PHP Web Page</h1>
     <p>This is a sample PHP page.</p>
 
-    <?php
-    // Include the PHP file with the get_access_token function
-    require_once 'S2SOAuth.php';
+    <a href="/webhook.php">webhook</a> <br/>
+    <a href="/s2soauth.php">s2soauth</a><br/>
+    <a href="/redirecturlforoauth.php?code=xxxx">redirecturlforoauth?code=xxxx</a><br/>
+    <a href="/oauthrefreshtoken.php?code=xxxx">oauthrefreshtoken?code=xxxx</a><br/>
+    <br/>
 
-    // Call the get_access_token function
-    $access_token = getAccessToken();
+    <a href="https://zoom.us/oauth/authorize?response_type=code&client_id=97sULMUxRQuQg1xdNFKngQ&redirect_uri=https%3A%2F%2Fphp.asdc.cc%2Fredirecturlforoauth.php"> application adding url</a><br/>
 
-    // Display the access token (for demonstration purposes)
-    if ($access_token) {
-        echo "<p>Access Token: $access_token</p>";
-    } else {
-        echo "<p>Failed to retrieve Access Token.</p>";
-    }
-    ?>
+    <br/>
+    <br/>
+
+
 </body>
 </html>

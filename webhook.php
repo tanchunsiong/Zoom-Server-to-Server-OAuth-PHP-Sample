@@ -36,27 +36,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Output the response JSON
             echo json_encode($response);
+
         } else {
             // Payload is missing the "plainToken" property
             http_response_code(400); // Bad Request
             echo "Payload is missing 'plainToken' property.";
         }
     } else {
-        // Invalid event type
-        http_response_code(400); // Bad Request
-        echo "Invalid event type.";
+
+        try{
+        // Save the JSON data to a file
+        $jsonFileName = '/var/www/php.asdc.cc/webhook.txt'; // Set the filename
+        file_put_contents($jsonFileName, json_encode($data));
+        echo "Data Saved: " .  json_encode($data);
+        }
+        catch(Exception $e){
+            echo "An error occurred: " . $e->getMessage();
+        }
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // This block handles GET requests
 
-    // Handle your GET request logic here
+    $jsonFileName = '/var/www/php.asdc.cc/webhook.txt'; 
+    // Check if the file 'token.txt' exists
+    if (file_exists('/var/www/php.asdc.cc/webhook.txt')) {
+        try{
+         // Read the JSON data from the file
+         $jsonContents = file_get_contents($jsonFileName);
 
-    // For example, you can retrieve query parameters using $_GET
-    if (isset($_GET['param1'])) {
-        $param1 = $_GET['param1'];
-        echo "Received GET request with param1 = $param1";
+        // Parse the JSON data into a PHP object
+        $jsonData = json_decode($jsonContents);
+
+        // Convert the PHP object back to a JSON string
+        $jsonString = json_encode($jsonData);
+
+        // Echo the JSON string
+        echo $jsonString;
+        }
+        catch(Exception $e){
+            echo "An error occurred: " . $e->getMessage();
+        }
     } else {
-        echo "Received GET request without param1";
+        // Token file does not exist
+        echo "Token file does not exist.";
     }
 } else {
     // Unsupported HTTP method
@@ -64,3 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Unsupported HTTP method.";
 }
 ?>
+
+
+
+
+

@@ -4,19 +4,19 @@ $config = include 'config.php';
 
 
 // Access the environment variables
-$clientId  = $config['client_id'];
-$clientSecret  = $config['client_secret'];
-$accountId= $config['account_id'];
+$clientId  = $config['s2s_oauth_client_id'];
+$clientSecret  = $config['s2s_oauth_client_secret'];
+$accountId= $config['s2s_oauth_account_id'];
 $oauthUrl = 'https://zoom.us/oauth/token?grant_type=account_credentials&account_id=' . $accountId;  // Replace with your OAuth endpoint URL
 
-function getAccessToken() {
+
     global $clientSecret, $clientId, $oauthUrl;
 
 
     try {
         // Create the Basic Authentication header
         $authHeader = 'Basic ' . base64_encode($clientId . ':' . $clientSecret);
-        echo "authHeader: " . $authHeader .  PHP_EOL;
+     
         // Initialize cURL session
         $ch = curl_init($oauthUrl);
 
@@ -34,7 +34,13 @@ function getAccessToken() {
             // Parse the JSON response to get the access token
             $oauthResponse = json_decode($response, true);
             $accessToken = $oauthResponse['access_token'];
-            return $accessToken;
+            //return $accessToken;
+            http_response_code(200); // Replace 200 with your desired status code
+            // Set the "Content-Type" header to "application/json"
+            header('Content-Type: application/json');
+            echo json_encode($accessToken);
+      
+            
         } else {
             echo 'OAuth Request Failed with Status Code: ' . $httpCode . PHP_EOL;
             echo $response . PHP_EOL;
@@ -47,6 +53,5 @@ function getAccessToken() {
         echo 'An error occurred: ' . $e->getMessage() . PHP_EOL;
         return null;
     }
-}
 
 ?>

@@ -34,3 +34,5 @@ composer.lock
 # Ignore Node.js-related files and directories
 node_modules/
 package-lock.json
+config.php
+config.php
