@@ -20,5 +20,8 @@ return [
 If you don't already have php curl installed
 `sudo apt-get install php-curl`
 
+If you dont already have firebase php installed
+`composer require firebase/php-jwt`
+
 
 

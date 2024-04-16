@@ -1,12 +1,14 @@
 <?php
 
 return [
-    'client_id' => 'xxxxxx',
-    'client_secret' => 'yyyyyyy',
-    'account_id' => 'zzzzzzz',
-    'webhook_app_secret_token'=>'123123123',
-    'oauth_client_id'=>'xxxxxxxx',
-    'oauth_client_secret'=>'yyyyyy'
+    's2s_oauth_client_id' => '',
+    's2s_oauth_client_secret' => '',
+    's2s_oauth_account_id' => '',
+    'webhook_app_secret_token'=>'',
+    'oauth_client_id'=>'',
+    'oauth_client_secret'=>'',
+    'meetingSDKClientKey'=>'',
+    'meetingSDKClientSecret'=>''
 ];
 
 ?>
